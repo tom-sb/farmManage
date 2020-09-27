@@ -1,2 +1,9 @@
-agregar excepciones para los nombres que inducen al error o confusion
+Agregar excepciones para los nombres que inducen al error o confusion
+
+Agregar opciones de "editar" a los cluster para poder cambiar datos como el nmombre o eliminarlos(pensar como se deberia eliminar por q existen varios datos dependientes del cluster)
+
+Alimentos Vitaminas y Medicinas(preguntar) vacunas pensar/ agregar al modelo tres atributos (stock stockDesignado ciclo)
+
+CronogramaVacunacion / pendiete a consutla, se trata de implementar un modelo CarnetDeVacunacion para el manejo de las vacunas en la granja
+
 
