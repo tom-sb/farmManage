@@ -1,0 +1,190 @@
+{% extends 'base/base.html' %}
+
+{%block content%}
+
+<div class="row page-titles">
+	<div class="col-md-8 align-self-center">
+		<h3 class="text-themecolor">Data Info</h3>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="#">Home</a></li>
+			<li class="breadcrumb-item active">clusterUpdate</li>
+		</ol>
+	</div>
+	<div class="col-md-4 align-self-center">
+		<h3 class="text-themecolor"> Info cluster</h3>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item active">Nombre: {{cluster.nombre_cluster}}</li>
+		</ol>
+	</div>
+</div>
+
+
+<div class="">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="collapse navbar-collapse" id="navbarColor03">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link {{ active1 }}" href="{% url 'asignarPersonal' pk=cluster.pk status=0 %}">
+        	Personal
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {{ active2 }}" href="{% url 'asignarPersonal' pk=cluster.pk status=1 %}">
+        Cerdos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Alimento</a>
+      </li> 
+    </ul>
+  </div>
+</nav>
+</div>
+
+
+{% if status == 0 %}
+<div class="row">
+	<div class="col-md-6 ">
+	<div class="card">
+		<div class="card-header">
+			<strong class="card-title"> Personal Calificado</strong>
+		</div>
+		<div class="card-body">
+			<table class="table table-hover tests">
+				<thead class="thead-dark">
+					<tr>
+						<th> NombrE</th>
+						<th> Fecha de Carnet</th>
+						<th> Accion </th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for person in personalC %}
+					<tr>
+						<td>{{person.nombre_personal}}</td>
+						<td>{{person.vencimiento_carnet}}</td>
+						<td>
+							<a href="{% url 'removerPersonal' pkC=cluster.pk pkP=person.pk%}">
+								<button type="button" class="btn btn-outline-success">
+									Quitar Trabajador
+								</button>
+							</a>
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	</div>
+	<div class="col-md-6 ">
+	<div class="card">
+		<div class="card-header">
+			<strong class="card-title"> Personal sin Calificar</strong>
+		</div>
+		<div class="card-body">
+			<table  class="table table-hover tests">
+				<thead class="thead-dark">
+					<tr>
+						<th> Nombre </th>
+						<th> Fecha de Carnet </th>
+						<th> Accion</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for person in personal %}
+					<tr>
+						<td>{{ person.nombre_personal}}</td>
+						<td>{{ person.vencimiento_carnet}}</td>
+						<td>
+							<a href="{% url 'insertPersonal' pkC=cluster.pk pkP=person.pk %}">
+								<button type="button" class="btn btn-outline-success">
+									Asignar Tarea
+								</button>
+							</a>
+						</td>
+					</tr>
+					{% endfor%}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	</div>
+
+</div>
+{% elif status == 1%}
+<div class="row">
+	<div class="col-md-6 ">
+		<div class="card">
+			<div class="card-header">
+				<strong class="card-title"> Cerdos del cluster</strong>
+			</div>
+			<div class="card-body">
+				<table  class="table table-hover tests">
+					<thead class="thead-dark">
+						<tr>
+							<th> Nombre </th>
+							<th> Raza </th>
+							<th> Peso </th>
+							<th> Acción </th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for cerdo in cerdosC%}
+						<tr>
+							<td> {{ cerdo.nombre_cerdo}}</td>
+							<td> {{ cerdo.raza}}</td>
+							<td> {{ cerdo.peso}}</td>
+							<td>
+								<a href="{% url 'removeCerdoC' pkC=cluster.pk pkc=cerdo.pk%}">
+								<button type="button" class="btn btn-outline-success">
+									Quitar Cerdo
+								</button>
+								</a>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6 ">
+		<div class="card">
+			<div class="card-header">
+				<strong> Cerdos sin clasificar</strong>
+			</div>
+			<div class="card-body">
+				<table  class="table table-hover tests">
+					<thead class="thead-dark">
+						<tr>
+							<th> Nombre</th>
+							<th> Raza </th>
+							<th> Peso </th>
+							<th> Acción </th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for cerdo in cerdos %}
+						<tr>
+							<td> {{ cerdo.nombre_cerdo}}</td>
+							<td> {{ cerdo.raza}}</td>
+							<td> {{ cerdo.peso}}</td>
+							<td>
+								<a href="{% url 'insertCerdoC' pkC=cluster.pk pkc=cerdo.pk%}">
+								<button type="button" class="btn btn-outline-success">
+									Asignar Cerdo
+								</button>
+								</a>
+							</td>
+						</tr>
+						{% endfor%}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+</div>
+{% endif%}
+
+{% endblock %}

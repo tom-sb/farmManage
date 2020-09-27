@@ -1,0 +1,85 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+	
+	<div class="">
+	<div class="card">
+		<div class="card-header">
+			<strong class="card-title">Registrar Ficha alimento</strong>
+		</div>
+	<form method="POST">{% csrf_token %}
+		<table class ="table table-hover">
+			<tr>
+			{% for field in form %}
+			<th>{{field|as_crispy_field}}</th>	
+			{% endfor%}
+			</tr>
+			<tr>
+			<th>Accion <p>
+			<button type="submit" class="btn btn-outline-success btn-lg">
+			Registrar
+			</button>
+			</p></th>
+			</tr>
+		</table>
+	</form>
+	</div>
+	</div>
+
+		<div class="animated fadeIn">
+			<div class="card">
+			<div class="card-header">
+                        <strong class="card-title">Tabla ficha alimento</strong>
+                    </div>
+			<div class="card-body"> 
+			<table id="bootstrap-data-table" class="table table-hover table-striped table-bordered">
+				<thead class="thead-dark">
+				<tr>
+			  	<th >Id</th>
+			  	<th >Nombre de ficha alimento</th>
+			  	<th >Nro de dias de tratamiento</th>
+			  	<th >Frecuencia al dia</th>
+			  	<th >Dosis por toma</th>
+			  	<th >Fecha inicio</th>
+			  	<th >Cerdo</th>
+			  	<th >Alimento</th>
+			  	<th >Decisiones</th>
+				</tr>
+		  	</thead>
+			{% if ficha_alimento %}
+		  	<tbody>
+				{% for allficha_alimento in ficha_alimento %}
+					<tr>
+			  		<td>{{ allficha_alimento.id}}</td>
+			  		<td>{{ allficha_alimento.nombre_ficha}}</td>
+			  		<td>{{ allficha_alimento.alimento}}</td>
+			  		<td>{{ allficha_alimento.cluster}}</td>
+			  		<td>{{ allficha_alimento.fecha_expiracion}}</td>
+			  		<td>{{ allficha_alimento.frecuencia_xdia}}</td>
+			  		<td>{{ allficha_alimento.cantidad_xtoma}}</td>
+			  		<td>{{ allficha_alimento.auto_renovar}}</td>
+					<td>
+					<a href="{% url 'ficha_alimento_editar' pk=allficha_alimento.pk %}">
+					<button type="button" class="btn btn-outline-warning">Editar</button>
+					</a>
+					<a href="{% url 'ficha_alimento_eliminar' pk=allficha_alimento.pk%}">
+					<button type="button" class="btn btn-outline-danger">Eliminar</button>
+					</a>
+					<a href="{% url 'ficha_alimento_eliminar' pk=allficha_alimento.pk%}">
+					<button type="button" class="btn btn-outline-secondary">Ver Reporte</button>
+					</a>
+					</td>
+				</tr>
+				{% endfor%}
+				{% else %}
+				<h1> No hay registros de ficha alimento </h1>
+				{% endif%}
+		  	</tbody>
+			</table>
+			</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+{% endblock %}

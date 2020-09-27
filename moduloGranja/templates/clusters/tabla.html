@@ -1,0 +1,103 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+<div class="row pages-titles">
+	<div class="col-md-9 align-self-center">
+		<h3 class="text-themecolor"> Data Info</h3>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"> <a href="#">Home</a></li>
+			<li class="breadcrumb-item active"> Cluster</li>
+		</ol>
+	</div>
+	<div class="col-md-3 align-self-center">
+		<h3 class="text-themecolor"> Info de cluster</h3>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item active">Nombre: {{cluster.nombre_cluster}}</li>
+			<li class="breadcrumb-item active">Capacidad: {{cluster.capacidad}}</li>
+		</ol>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-9">
+	<div class="card">
+		<div class="card-header">
+			<strong class="card-title"> Tabla de cerdos</strong>
+		</div>
+		<div class="card-body">
+		<table id ="bootstrap-data-table" class="table table-hover table-bordered">
+		  <thead class="thead-dark">
+			<tr>
+			  <th scope="col">Type</th>
+			  <th scope="col">Id</th>
+			  <th scope="col">Cluster</th>
+			  <th scope="col">Nombre</th>
+			  <th scope="col">Raza</th>
+			  <th scope="col">Fecha de Nac.</th>
+			  <th scope="col">Peso</th>
+			</tr>
+		  </thead>
+		  <tbody>
+
+			{% if cerdos %}
+			{% for allcerdos in cerdos %}
+			{% if allcerdos.peso < 60 %}
+			<tr>
+			  <th scope="row">Insuficiente</th>
+			  <td>{{ allcerdos.id}}</td>
+			  <td>{{ allcerdos.cluster}}</td>
+			  <td>{{ allcerdos.nombre_cerdo}}</td>
+			  <td>{{ allcerdos.raza}}</td>
+			  <td>{{ allcerdos.fecha_nac}}</td>
+			  <td>{{ allcerdos.peso}}</td>
+			{% else %}
+			<tr class="table-light">
+			  <th scope="row">Suficiente</th>
+			  <td>{{ allcerdos.id}}</td>
+			  <td>{{ allcerdos.cluster}}</td>
+			  <td>{{ allcerdos.nombre_cerdo}}</td>
+			  <td>{{ allcerdos.raza}}</td>
+			  <td>{{ allcerdos.fecha_nac}}</td>
+			  <td>{{ allcerdos.peso}}</td>
+			{% endif %}
+			{% endfor%}
+			{% else %}
+			<h1> No hay registros de alimentos </h1>
+			{% endif%}
+			
+		  </tbody>
+		</table> 
+		</div>
+	</div>
+	</div>
+	<div class="col-md-3">
+	<div class="card">
+		<div class="card-header">
+				<strong class="card-title"> Personal encargado</strong>
+		</div>
+		<div class="card-body">
+				{% if cluster.personal.all %}
+					{% for person in cluster.personal.all%}
+						<li>{{ person}}</li>
+					{% endfor%}	
+				{% else%}
+				<h1>no hay personal asignado</h1>
+				{% endif%}
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-header">
+			<strong class="card-title"> Alimentos </strong>
+		</div>
+		<div class="card-body">
+				{% for Ficha in alimentos %}
+				<li> {{ Ficha.alimento }}</li>
+				{% endfor%}
+		</div>
+		<a href="{% url 'asignarPersonal' pk=cluster.pk status=0%}">
+			<button type="button" class="btn btn-secondary btn-lg btn-block">Administrar Cluster</button>
+		</a>
+	</div>
+	</div>
+</div>
+
+	{% endblock %}

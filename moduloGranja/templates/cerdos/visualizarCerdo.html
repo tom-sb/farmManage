@@ -1,0 +1,177 @@
+{% extends 'base/base.html' %}
+{% block content%}
+
+<div class="row page-titles">
+	<div class="col-md-9 align-self-center">
+		<h3 class="text-themecolor"> Data Info</h3>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="#">Home</a></li>
+			<li class="breadcrumb-item active">Cerdo</li>
+		</ol>
+	</div>
+	<div class="col-md-3 align-self-center">
+		<h3 class="text-themecolor"> Nombre</h3>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item active">{{cerdo.nombre_cerdo}}</li>
+		</ol>
+	</div>
+
+</div>
+<div class="row">
+	<div class="col-md-9">
+	<ul class="nav nav-tabs">
+	  <li class="nav-item">
+	    <a class="nav-link active" data-toggle="tab" href="#FichaMedica">Ficha Medica</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" data-toggle="tab" href="#FichaAlimenticia">Ficha Alimentica</a>
+	  </li>
+	  <li class="nav-item">
+		<a class="nav-link" data-toggle="tab" href="#Responsabilidad">Responsabilidad</a>
+	  </li>
+	  <li class="nav-item">
+		<a class="nav-link" data-toggle="tab" href="#editar">Modificaciones</a>
+	  </li>
+	</ul>
+	<div id="myTabContent" class="tab-content">
+		<div class="tab-pane fade active show" id="FichaMedica">
+			<div class="card-body">
+			<table id="bootstrap-data-table" class="table table-hover table-bordered">
+				<thead class="thead-dark">
+					<tr>
+						<th> Nombre </th>
+						<th> Tratamiento </th>
+						<th> Frecuencia </th>
+						<th> Dosis </th>
+						<th> Fecha inicio </th>
+						<th> Farmaco</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for vitamina in FichaVit %}
+					<tr>
+						<td> {{vitamina.nombre_fichavet }}</td>
+						<td> {{vitamina.dias_tratamiento }}</td>
+						<td> {{vitamina.frecuencia_xdia }}</td>
+						<td> {{vitamina.dosis_xtoma }}</td>
+						<td> {{vitamina.fecha_inicio }}</td>
+						<td> {{vitamina.vitamina}}</td>
+					</tr>
+					{% endfor%}
+					{% for medicina in FichaMed %}
+					<tr>
+						<td> {{medicina.nombre_fichavet }}</td>
+						<td> {{medicina.dias_tratamiento }}</td>
+						<td> {{medicina.frecuencia_xdia }}</td>
+						<td> {{medicina.dosis_xtoma }}</td>
+						<td> {{medicina.fecha_inicio }}</td>
+						<td> {{medicina.medicina }}</td>
+					</tr>
+					{% endfor%}
+					{% for vacuna in FichaVac%}
+					<tr>	
+						<td> {{vacuna.nombre_fichavet }}</td>
+						<td> {{vacuna.dias_tratamiento }}</td>
+						<td> {{vacuna.frecuencia_xdia }}</td>
+						<td> {{vacuna.dosis_xtoma }}</td>
+						<td> {{vacuna.fecha_inicio }}</td>
+						<td> {{vacuna.vacuna }}</td>
+					</tr>
+					{% endfor%}
+				</tbody>
+			</table>
+			</div>
+		</div>
+		<div class="tab-pane fade " id="FichaAlimenticia">
+  			<div class="card-body">
+				<table class="table table-hover table-bordered tests">
+					<thead class="thead-dark">
+						<tr>
+							<th> Nombre </th>
+							<th> Alimento </th>
+							<th> Frecuencia Dia </th>
+							<th> Cantidad </th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for alimento in alimentos %}
+						<tr>
+							<th> {{alimento.nombre_ficha }}</th>
+							<th> {{alimento.alimento }}</th>
+							<th> {{alimento.frecuencia_xdia }}</th>
+							<th> {{alimento.cantidad_xtoma }}</th>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="tab-pane fade" id="Responsabilidad">
+			<div class="card ">
+				<div class="card-header">
+					<strong class="card-title"> Información Cerdo </strong>
+				</div>
+				<div class="card-body">
+					<h2 class="card-title"> {{cerdo.nombre_cerdo}}</h2>
+					<p><strong>Cluster:</strong> {{cerdo.cluster}}</p>
+					<p><strong>Raza:</strong> {{cerdo.raza}}</p>
+					<p><strong>Fecha Nacimiento:</strong> {{cerdo.fecha_nac}}</p>
+					<p><strong>Peso:</strong> {{cerdo.peso}}</p>
+					<p><strong>Edad:</strong> {{cerdo.edad}}</p>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-header">
+					<strong class="card-title">Información Tipo</strong>
+				</div>
+				<div class="card-body">	
+					<h2 class="card-title">{{ cerdo.tipo}} </h2>
+					{% if cerdo.tipo == 'Reproductora' %}
+					<p><strong>Nro Inseminaciones</strong>< {{cerdo.tipo.nro_inseminaciones}}/p>
+					<p><strong>Nro Partos</strong>{{cerdo.tipo.nro_partos}}</p>
+					<p><strong>Fecha Gestacion</strong>{{cerdo.tipo.fecha_gestacion}}</p>
+					<p><strong>Enbarazo</strong>{{cerdo.tipo.embarazo}}</p>
+					<p><strong>Riesgo</strong>{{cerdo.tipo.riesgo}}</p>
+					{% elif cerdo.tipo == 'Engorde'%}
+					<p><strong>Apto</strong>{{cerdo.tipo.apto}}</p>
+					<p><strong>score</strong>{{cerdo.tipo.score}}</p>
+					{% elif cerdo.tipo == 'Reproductor'%}
+					<p><strong>Nro Muestras</strong>{{cerdo.tipo.nro_muestras}}</p>
+					<p><strong>Nro Hijos</strong>{{cerdo.tipo.nro_hijos}}</p>
+					{% elif cerdo.tipo == 'Nacido'%}
+					<p><strong>Apto</strong>{{cerdo.tipo.apto}}</p>
+					{% else %}
+					<strong> No tiene un rol definido </strong>
+					{% endif %}
+
+				</div>
+			</div>
+		</div>
+		<div class="tab-pane fade" id="editar">
+			<div class="card-body">
+				Modificacion de datos
+			</div>
+		</div>
+	</div>
+	
+	</div>
+	
+	<div class="col-md-3">
+		<div class="card text-white bg-{{ cerdo.reporte }}">
+			<div class="card-header">
+				<strong class="card-title">Informacion Personal</strong>
+			</div>
+			<div class="card-body">
+				<h1>{{cerdo.nombre_cerdo}}</h1>
+				<h2 class="title">{{ cerdo.tipo }}</h2>
+				<p><strong>Cluster:</strong> {{cerdo.cluster }}</p>
+				<p><strong> Raza:</strong> {{ cerdo.raza}}  </p>
+				<p><strong> Peso:</strong> {{cerdo.peso}}  </p>
+				<p><strong> Edad:</strong> {{ cerdo.edad }} </p>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,75 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+	
+	<div class="">
+	<div class="card">
+		<div class="card-header">
+			<strong class="card-title">Registrar Vitaminas</strong>
+		</div>
+	<form method="POST">{% csrf_token %}
+		<table class ="table table-hover">
+			<tr>
+			{% for field in form %}
+			<th>{{field|as_crispy_field}}</th>	
+			{% endfor%}
+			<th>Accion <p>
+			<button type="submit" class="btn btn-outline-success btn-lg">
+			Registrar
+			</button>
+			</p></th>
+			</tr>
+		</table>
+	</form>
+	</div>
+	</div>
+
+		<div class="animated fadeIn">
+			<div class="card">
+			<div class="card-header">
+                        <strong class="card-title">Tabla Vitaminas</strong>
+                    </div>
+			<div class="card-body"> 
+			<table id="bootstrap-data-table" class="table table-hover table-striped table-bordered">
+				<thead class="thead-dark">
+				<tr>
+			  	<th >Id</th>
+			  	<th >Nombre de vitaminas</th>
+			  	<th >Marca</th>
+			  	<th >Fecha Vencimiento</th>
+			  	<th >Decisiones</th>
+				</tr>
+		  	</thead>
+			{% if vitaminas %}
+		  	<tbody>
+				{% for allvitaminas in vitaminas %}
+					<tr>
+			  		<td>{{ allvitaminas.id}}</td>
+			  		<td>{{ allvitaminas.nombre_vit}}</td>
+			  		<td>{{ allvitaminas.marca}}</td>
+			  		<td>{{ allvitaminas.fecha_vencimiento}}</td>
+					<td>
+					<a href="{% url 'editar_vitamina' pk=allvitaminas.pk %}">
+					<button type="button" class="btn btn-outline-warning">Editar</button>
+					</a>
+					<a href="{% url 'eliminar_vitamina' pk=allvitaminas.pk%}">
+					<button type="button" class="btn btn-outline-danger">Eliminar</button>
+					</a>
+					<a href="{% url 'visualizar_vitamina' pk=allvitaminas.pk%}">
+					<button type="button" class="btn btn-outline-secondary">Ver Reporte</button>
+					</a>
+					</td>
+				</tr>
+				{% endfor%}
+				{% else %}
+				<h1> No hay registros de Vitaminas </h1>
+				{% endif%}
+		  	</tbody>
+			</table>
+			</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+{% endblock %}

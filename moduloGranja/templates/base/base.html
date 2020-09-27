@@ -1,0 +1,187 @@
+{% load static %}
+{% load bootstrap4 %}       {# import bootstrap4/bootstrap3 #}
+{% bootstrap_css %}         {# Embed Bootstrap CSS #}
+{% bootstrap_javascript jquery='full' %}  {# Embed Bootstrap JS+jQuery #}
+{{ form.media }}            {# Adds date-picker required JS and CSS #}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">	
+	{% block extrastatic %}
+	{% endblock %}
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="stylesheet" href="{% static '4/sandstone/bootstrap.css' %}" media="screen">
+    <link rel="stylesheet" href="{% static '_assets/css/custom.min.css' %}">
+
+
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'assets/css/lib/datatable/dataTables.bootstrap.min.css' %}">
+    <script type="text/javascript" async="" src="https://ssl.google-analytics.com/ga.js"></script>
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
+    <link rel="stylesheet" href="{% static 'assets/css/cs-skin-elastic.css' %}">
+
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+
+	<title>{% block title %} Documentxxx {% endblock%}</title>
+</head>
+
+<body class="" style="">
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary" style="">
+	<div class="container">
+					  <a class="navbar-brand" href="#">aLittlePigSoft</a>
+					  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					  </button>
+
+					  <div class="collapse navbar-collapse" id="navbarColor01">
+						<ul class="navbar-nav mr-auto">
+						  <li class="nav-item active">
+							<a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+						  </li>
+						  <li class="nav-item">
+							<a class="nav-link" href="/grupos">Grupos</a>
+						  </li>
+						  <li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="/cerdos" role="button" aria-haspopup="true" aria-expanded="false">Cerdos</a>
+							<div class="dropdown-menu">
+							  <a class="dropdown-item" href="{% url 'index_cerdos'%}">
+							  	Principal
+							  </a>
+							  <a class="dropdown-item" href="{% url 'index_reproductora'%}">
+							  Reproductora</a>
+							  <a class="dropdown-item" href="{% url 'index_reproductor'%}">
+							  Reproductor</a>
+							  <a class="dropdown-item" href="{% url 'index_engorde' %}">
+							  Engorde</a>
+							  <a class="dropdown-item" href="{% url 'index_nacido'%}">
+							  Nacidos</a>
+							  
+							  <a class="dropdown-item" href="#">
+							  Administrar</a>
+						  </li>
+						  <li class="nav-item">
+							<a class="nav-link" href="/alimentos">Alimentos</a>
+						  </li>
+						  <li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="/farmacos" role="button" aria-haspopup="true" aria-expanded="false">Farmacos</a>
+							<div class="dropdown-menu">
+							  <a class="dropdown-item" href="{% url 'index_medicinas'%}">
+							  Medicinas</a>
+							  <a class="dropdown-item" href="{% url 'index_vitaminas'%}">
+							  Vitaminas</a>
+							  <a class="dropdown-item" href="{% url 'index_vacunas' %}">
+							  Vacunas</a>
+							  <a class="dropdown-item" href="#">
+							  Administrar</a>
+						  </li>
+						  <li class="nav-item">
+							<a class="nav-link" href="/personal">Personal</a>
+						  </li>
+
+						  <li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="/fichas" role="button" aria-haspopup="true" aria-expanded="false">Fichas</a>
+							<div class="dropdown-menu">
+							  <a class="dropdown-item" href="{% url 'ficha_alimento'%}">
+							  Ficha Alimentos</a>
+							  <a class="dropdown-item" href="{% url 'index_ficha_medicina'%}">
+							  Ficha Medicinas</a>
+							  <a class="dropdown-item" href="{% url 'index_ficha_vitamina'%}">
+							  Ficha Vitaminas</a>
+							  <a class="dropdown-item" href="{% url 'index_ficha_vacuna' %}">
+							  Ficha Vacunas</a>
+							  <a class="dropdown-item" href="#">
+							  Administrar</a>
+						  </li>
+
+						</ul>
+						<form class="form-inline my-2 my-lg-0">
+						  <input class="form-control mr-sm-2" type="text" placeholder="Search">
+						  <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+						</form>
+					  </div>
+
+      </div>
+	</nav>
+
+<div class="container">
+<div class="page-header" id="banner">   
+	{% block content %}
+
+	{% endblock %}
+</div>
+</div>
+
+
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+	
+	
+	<script src="{% static '_vendor/jquery/dist/jquery.min.js' %}"></script>
+	<script src="{% static '_vendor/popper.js/dist/umd/popper.min.js' %}"></script>
+	<script src="{% static '_vendor/bootstrap/dist/js/bootstrap.min.js'%}"></script>
+	<script src="{% static '_assets/js/custom.js' %}"></script>
+	
+	<!-- Scripts -->
+	
+	
+    <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
+    <script src="{% static 'assets/js/main.js' %}"></script>
+
+
+    <script src="{% static 'assets/js/lib/data-table/datatables.min.js' %}"></script>
+    <script src="{% static 'assets/js/lib/data-table/dataTables.bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/lib/data-table/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'assets/js/lib/data-table/buttons.bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/lib/data-table/jszip.min.js' %}"></script>
+    <script src="{% static 'assets/js/lib/data-table/vfs_fonts.js' %}"></script>
+    <script src="{% static 'assets/js/lib/data-table/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'assets/js/lib/data-table/buttons.print.min.js' %}"></script>
+    <script src="{% static 'assets/js/lib/data-table/buttons.colVis.min.js' %}"></script>
+    <script src="{% static 'assets/js/init/datatables-init.js' %}"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+          $('#bootstrap-data-table-export').DataTable();
+      } );
+  </script>
+  <!--script>
+        $(document).ready(function () {
+            $("#table_id").DataTable({
+                "pagingType": "full_numbers",
+            });
+            
+        });
+        
+});
+    </script-->
+  	<script>
+  		$(function() {
+        var testsTable = $('.tests').dataTable({
+                "pagingType": "full_numbers",
+        });
+});
+  	</script>
+  	
+  
+	{% block extrajs %}
+	{% endblock %}
+
+</body>
+</html>

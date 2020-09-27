@@ -1,0 +1,31 @@
+.
+├── [4.0K]  moduloGranja
+│   ├── [ 632]  manage.py
+│   └── [4.0K]  moduloGranja
+│       ├── [ 401]  asgi.py
+│       ├── [   0]  __init__.py
+│       ├── [3.0K]  settings.py
+│       ├── [ 754]  urls.py
+│       └── [ 401]  wsgi.py
+├── [   0]  out.txt
+└── [4.0K]  restaurantPolleria
+    ├── [4.0K]  factura
+    │   ├── [  63]  admin.py
+    │   ├── [  89]  apps.py
+    │   ├── [   0]  __init__.py
+    │   ├── [4.0K]  migrations
+    │   │   └── [   0]  __init__.py
+    │   ├── [  57]  models.py
+    │   ├── [4.0K]  templates
+    │   │   └── [4.0K]  factura
+    │   ├── [  60]  tests.py
+    │   └── [  63]  views.py
+    ├── [ 638]  manage.py
+    └── [4.0K]  restaurantPolleria
+        ├── [ 413]  asgi.py
+        ├── [   0]  __init__.py
+        ├── [3.1K]  settings.py
+        ├── [ 760]  urls.py
+        └── [ 413]  wsgi.py
+
+8 directories, 20 files

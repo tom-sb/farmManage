@@ -1,0 +1,88 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+{% if nombre != 'Cerdos'%}
+<div class="row page-titles">
+	<div class="col-md-8 align-self-center">
+		<h3 class="text-themecolor">Data Info</h3>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="#">Home</a></li>
+			<li class="breadcrumb-item active">clusterUpdate</li>
+		</ol>
+	</div>
+	<div class="col-md-4 align-self-center">
+		<h3 class="text-themecolor"> Info Cerdo</h3>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item active"> {{nombre}}</li>
+		</ol>
+	</div>
+</div>
+{% endif %}
+
+{% if nombre == 'Cerdos' %}
+<div class="">
+	<div class="card">
+		<div class="card-header">
+			<strong class="card-title"> Registrar Cerdo </strong>
+		</div>
+		<form method="POST" > {%csrf_token%}
+			<table class="table table-hover">
+				<tr>
+					{% for field in form%}
+						<td>{{ field|as_crispy_field}}</td>
+					{% endfor%}
+				</tr>
+			</table>
+			<button type="submit" class="btn btn-outline-success btn-block">
+			    <i class="fa fa-dot-circle-o"></i> Registrar
+			</button>
+
+		</form>
+	</div>
+</div>
+{% endif %}
+
+
+<div class="">
+	<div class="card">
+		<div class="card-header">
+			<strong class="card-title"> {{ nombre }} </strong>
+		</div>
+		
+		<div class="card-body">
+		<table class="table table-hover table-bordered tests">
+		  <thead class="thead-dark">
+			<tr>
+			  <th>Id</th>
+			  <th>Cluster</th>
+			  <th>Nombre</th>
+			  <th>Raza</th>
+			  <th> Acción</th>
+			</tr>
+		  </thead>
+		  <tbody>
+			{% for allcerdos in cerdos %}
+			<tr class="table-{{ allcerdos.reporte }}">
+			  <td>{{ allcerdos.id}}</td>
+			  <td>{{ allcerdos.cluster}}</td>
+			  <td>{{ allcerdos.nombre_cerdo}}</td>
+			  <td>{{ allcerdos.raza }}</td>
+			  <td> 
+				<a href="{% url 'eliminarCerdo' pk=allcerdos.pk%}">
+				<button type="button" class="btn btn-outline-danger">Eliminar</button>
+				</a>
+				<a href="{% url 'visualizarCerdo' pk=allcerdos.pk%}">
+				<button type="button" class="btn btn-outline-secondary">Ver Info</button>
+				</a>
+			  </td>
+			</tr>
+			{% endfor%}
+		  </tbody>
+		</table>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

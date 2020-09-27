@@ -1,0 +1,2 @@
+agregar excepciones para los nombres que inducen al error o confusion
+

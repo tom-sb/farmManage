@@ -1,0 +1,49 @@
+{% extends 'base/base.html' %}
+
+	{% block content %}
+	<h4> Tareas/Alertas </h4>
+	<div class="row">
+		<table class="table table-hover">
+		  <thead>
+			<tr>
+			  <th scope="col">Type</th>
+			  <th scope="col">Id</th>
+			  <th scope="col">Cluster</th>
+			  <th scope="col">Nombre</th>
+			  <th scope="col">Raza</th>
+			  <th scope="col">Fecha de Nac.</th>
+			  <th scope="col">Peso</th>
+			</tr>
+		  </thead>
+		  <tbody>
+
+			{% if cerdos %}
+			{% for allcerdos in cerdos %}
+			{% if allcerdos.peso < 60 %}
+			<tr>
+			  <th scope="row">Insuficiente</th>
+			  <td>{{ allcerdos.id}}</td>
+			  <td>{{ allcerdos.cluster}}</td>
+			  <td>{{ allcerdos.nombre_cerdo}}</td>
+			  <td>{{ allcerdos.raza}}</td>
+			  <td>{{ allcerdos.fecha_nac}}</td>
+			  <td>{{ allcerdos.peso}}</td>
+			{% else %}
+			<tr class="table-light">
+			  <th scope="row">Suficiente</th>
+			  <td>{{ allcerdos.id}}</td>
+			  <td>{{ allcerdos.cluster}}</td>
+			  <td>{{ allcerdos.nombre_cerdo}}</td>
+			  <td>{{ allcerdos.raza}}</td>
+			  <td>{{ allcerdos.fecha_nac}}</td>
+			  <td>{{ allcerdos.peso}}</td>
+			{% endif %}
+			{% endfor%}
+			{% else %}
+			<h1> No hay registros de alimentos </h1>
+			{% endif%}
+			
+		  </tbody>
+		</table> 
+	</div>
+	{% endblock %}

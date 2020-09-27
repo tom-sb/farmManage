@@ -1,0 +1,85 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+	
+	<div class="">
+	<div class="card">
+		<div class="card-header">
+			<strong class="card-title">Registrar Ficha Vitamina</strong>
+		</div>
+	<form method="POST">{% csrf_token %}
+		<table class ="table table-hover">
+			<tr>
+			{% for field in form %}
+			<th>{{field|as_crispy_field}}</th>	
+			{% endfor%}
+			</tr>
+			<tr>
+			<th>Accion <p>
+			<button type="submit" class="btn btn-outline-success btn-lg">
+			Registrar
+			</button>
+			</p></th>
+			</tr>
+		</table>
+	</form>
+	</div>
+	</div>
+
+		<div class="animated fadeIn">
+			<div class="card">
+			<div class="card-header">
+                        <strong class="card-title">Tabla ficha vitamina</strong>
+                    </div>
+			<div class="card-body"> 
+			<table id="bootstrap-data-table" class="table table-hover table-striped table-bordered">
+				<thead class="thead-dark">
+				<tr>
+			  	<th >Id</th>
+			  	<th >Nombre de ficha vitamina</th>
+			  	<th >Nro de dias de tratamiento</th>
+			  	<th >Frecuencia al dia</th>
+			  	<th >Dosis por toma</th>
+			  	<th >Fecha inicio</th>
+			  	<th >Cerdo</th>
+			  	<th >Vitamina</th>
+			  	<th >Decisiones</th>
+				</tr>
+		  	</thead>
+			{% if ficha_vitamina %}
+		  	<tbody>
+				{% for allficha_vitamina in ficha_vitamina %}
+					<tr>
+			  		<td>{{ allficha_vitamina.id}}</td>
+			  		<td>{{ allficha_vitamina.nombre_fichavet}}</td>
+			  		<td>{{ allficha_vitamina.dias_tratamiento}}</td>
+			  		<td>{{ allficha_vitamina.frecuencia_xdia}}</td>
+			  		<td>{{ allficha_vitamina.dosis_xtoma}}</td>
+			  		<td>{{ allficha_vitamina.fecha_inicio}}</td>
+			  		<td>{{ allficha_vitamina.cerdo}}</td>
+			  		<td>{{ allficha_vitamina.vitamina}}</td>
+					<td>
+					<a href="{% url 'editar_ficha_vitamina' pk=allficha_vitamina.pk %}">
+					<button type="button" class="btn btn-outline-warning">Editar</button>
+					</a>
+					<a href="{% url 'eliminar_ficha_vitamina' pk=allficha_vitamina.pk%}">
+					<button type="button" class="btn btn-outline-danger">Eliminar</button>
+					</a>
+					<a href="{% url 'visualizar_ficha_vitamina' pk=allficha_vitamina.pk%}">
+					<button type="button" class="btn btn-outline-secondary">Ver Reporte</button>
+					</a>
+					</td>
+				</tr>
+				{% endfor%}
+				{% else %}
+				<h1> No hay registros de ficha vitamina </h1>
+				{% endif%}
+		  	</tbody>
+			</table>
+			</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+<div class="row page-titles">
+	<div class="col-md-8 align-self-center">
+		<h3 class="text-themecolor">Data info</h3>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+			<li class="breadcrumb-item active">Google Map</li>
+		</ol>
+	</div>
+	<div class="col-md-4 align-self-center">
+		<h3 class="text-themecolor"> Personal Encargado </h3>
+		<ol class="breadcrumb">
+		<li class="breadcrumb-item"> {{personal}}</li>
+		</ol>
+	</div>
+</div>
+
+<div class="row">
+		{% if clusters %}
+		{%for cluster in clusters %}
+			<div class="col-lg-4">
+			<div class="card border-success mb-3" style="max-width: 30rm;">
+			<div class="card-header">{{cluster.nombre_cluster}}</div>
+			<div class="card-body">
+			<h4 class="card-title">Capacidad: {{cluster.capacidad}}</h4>
+			<p class="card-text">Cantidad: {{cluster.nro_cerdos}} </p>
+			</div>
+			</div>
+			</div>
+		</a>
+		{% endfor %}
+		{% else %}
+		<h1>No hay Clusters Asignados</h1>
+		{%endif%}
+</div>
+
+<div class="row">
+		<div class="col-lg-6">
+		<a href="{% url 'asignarTareas' pk=personal.pk %}">
+		<button type="button" class="btn btn-secondary btn-lg btn-block">Asignar un nuevo cluster.</button>
+		</a>
+		</div>
+</div>
+{% endblock%}
