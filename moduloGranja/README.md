@@ -69,12 +69,6 @@ _Herramientas usadas en el proyecto_
 ## Desarrolladores
 
 - Barrionuevo Paredes, Fabricio Jose
-- Mamani Panibra, Thales 
-- Mamani Sucacahua, Rodrigo
-- Oxa Cacya, Shirley
 - Soncco Lupa, Jean Carlos
 - Villanueva Sanchez, Fernando Thomas
 
-## Contacto
-Puede contactarnos a traves del siguiente correo
-[expendedora24@gmail.com](expendedora24@gmail.com)
