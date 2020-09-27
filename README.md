@@ -30,8 +30,5 @@ python manage.py runserver
 ## Autores
 
 - Barrionuevo Paredes, Fabricio Jose
-- Mamani Panibra, Thales 
-- Mamani Sucacahua, Rodrigo
-- Oxa Cacya, Shirley
 - Soncco Lupa, Jean Carlos
 - Villanueva Sanchez, Fernando Thomas
