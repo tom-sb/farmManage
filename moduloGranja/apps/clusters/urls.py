@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     path('', index_clusters,name = 'index_cluster'),
+    path('registrar/',views.registrarCluster,name='registrarCluster'),
     path('tablacluster/<int:pk>/',views.tablacluster,name = 'tablacluster'),
     path('asignar/<int:pk>/<int:status>/',views.asignarPersonal,name="asignarPersonal"),
     path('removePersonalC/<int:pkC>/<int:pkP>/',views.removerPersonal,name='removerPersonal'),

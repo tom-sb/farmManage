@@ -1,24 +1,41 @@
 {% extends 'base/base.html' %}
 {% load static %}
+
 {% block content %}
-<div class="row page-titles">
-	<div class="col-md-8 align-self-center">
+
+<div class="headfix bg-secondary navbar" >
+    <!-- creacione de botones-modals-->
+    <div class="container">
+    <div class="col-md-8 offset-md-8 col-sm-8 align-self-center">
+		
+        <a class="btn btn-primary btn-lg btn-rounded openModal" href="javascript:void(0);" rel="{% url 'editarPersonal' personal.pk %}" data-toggle="modal" data-target="#modalEditForm" >
+				Editar Personal
+		</a>
+                    
+		<a class="btn btn-primary btn-lg btn-rounded openModal" href="javascript:void(0);" rel="{% url 'asignarCluster' personal.pk %}" data-toggle="modal" data-target="#modalEditForm" >
+		Asignar Galpon
+		</a>		
+	</div>
+    </div>
+</div>
+
+<div class="bs-docs-section clearfix">
+	<!--div class="col-md-8 align-self-center">
 		<h3 class="text-themecolor">Data info</h3>
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
 			<li class="breadcrumb-item active">Google Map</li>
 		</ol>
-	</div>
-	<div class="col-md-4 align-self-center">
+	</div-->
+	<!--div class="col-md-4 align-self-center"-->
 		<h3 class="text-themecolor"> Personal Encargado </h3>
 		<ol class="breadcrumb">
 		<li class="breadcrumb-item"> {{personal}}</li>
 		</ol>
-	</div>
+	<!--/div-->
 </div>
 
-<div class="row">
-		{% if clusters %}
+<div class="bs-docs-section">
 		{%for cluster in clusters %}
 			<div class="col-lg-4">
 			<div class="card border-success mb-3" style="max-width: 30rm;">
@@ -31,16 +48,6 @@
 			</div>
 		</a>
 		{% endfor %}
-		{% else %}
-		<h1>No hay Clusters Asignados</h1>
-		{%endif%}
 </div>
 
-<div class="row">
-		<div class="col-lg-6">
-		<a href="{% url 'asignarTareas' pk=personal.pk %}">
-		<button type="button" class="btn btn-secondary btn-lg btn-block">Asignar un nuevo cluster.</button>
-		</a>
-		</div>
-</div>
 {% endblock%}

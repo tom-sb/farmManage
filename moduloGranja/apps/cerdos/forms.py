@@ -1,15 +1,20 @@
 from django import forms
 from bootstrap_datepicker_plus import DatePickerInput
 
-from .models import Cerdo, Reproductora, Engorde, Nacido, Reproductor 
+from .models import Cerdo,Raza, Reproductora, Engorde, Nacido, Reproductor 
+
+class FormRaza(forms.ModelForm):
+    class Meta:
+        model = Raza
+        fields =['nombre','edad_ideal','peso_ideal']
 
 class FormCerdo(forms.ModelForm):
     class Meta:
         model = Cerdo
-        fields = ('nombre_cerdo','raza','fecha_nac','peso',)
+        fields =['nombre','raza','genero','fecha_nacimiento','peso']
         widgets = {
-                'fecha_nac': DatePickerInput(
-                    format='%m/%d/%Y'),
+                'fecha_nacimiento': DatePickerInput(
+                    format='%m/%d/%Y')
                 }
 
 class FormReproductora(forms.ModelForm):

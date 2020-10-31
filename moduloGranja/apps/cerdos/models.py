@@ -1,48 +1,72 @@
 from django.db import models
-from apps.clusters.models import Cluster
+#from apps.clusters.models import Cluster
 from datetime import date
 # Create your models here.
-class Cerdo(models.Model):
-    cluster = models.ForeignKey(Cluster,null=True,blank=True, on_delete=models.CASCADE)
-    nombre_cerdo = models.CharField(max_length =25)
-    raza = models.CharField(max_length =25)
-    fecha_nac = models.DateField(default=date.today)
-    peso = models.PositiveSmallIntegerField()
+
+class Raza(models.Model):
+    nombre = models.CharField(max_length=25,primary_key=True)
+    edad_ideal = models.PositiveIntegerField()
+    peso_ideal = models.PositiveIntegerField()
+
+    class Meta:
+        abstract=False
+    def peso_promedio(self):
+        return self.peso_ideal/self.edad_ideal
 
     def __str__(self):
-        return self.nombre_cerdo
+        return self.nombre
+
+
+class Cerdo(models.Model):
+    GEN = (('M','Macho'), ('H','Hembra'))
+    nombre = models.CharField(verbose_name="nombre_cerdo",primary_key=True,unique=True,max_length =25)
+    raza = models.ForeignKey(Raza,on_delete=models.CASCADE)
+    genero = models.CharField(verbose_name="genero",choices=GEN,max_length=10)
+    peso = models.PositiveSmallIntegerField()
+    fecha_nacimiento = models.DateField(default=date.today)
+
+    def __str__(self):
+        return self.nombre
     def edad(self):
-        return date.today().year-self.fecha_nac.year
+        return date.today().year-self.fecha_nacimiento.year
+    def viabilidad(self):
+        raza = Raza.objects.get(pk=self.raza)
+        
+        edad = self.edad()
+        if edad==0: edad=1
+        pr = (raza.peso_promedio()*edad)
+        probabilidad = self.peso/pr
+        return probabilidad
 
     def reporte(self):
-        edad = self.edad()
-        if edad==0:
-            edad=0.5
-        medida = self.peso/edad
-        if medida>10:
-            return str('warning')
-        elif medida<10:
+        prob = self.viabilidad() 
+        if 0.85 < prob < 1.1:
+            return str('success')
+        elif prob <= 0.85:
             return str('danger')
         else:
-            return str('success')
-
+            return str('warning')
     def tipo(self):
-        repH = Reproductora.objects.filter(cerdo=self)
-        if repH :
-            return self.reproductora
-        repM = Reproductor.objects.filter(cerdo=self)
-        if repM :
-            return self.reproductor
-        engorde = Engorde.objects.filter(cerdo=self)
-        if engorde :
-            return self.engorde
-        nacido = Nacido.objects.filter(cerdo=self)
-        if nacido :
-            return self.nacido
-        else:
-            return 'indefinido'
+        rol = cerdoRol.objects.get(cerdo=self.pk)
+        return rol
+    def cluster(self):
+        return 1
 
+    #class Meta:
+    #    abstract = False
 
+class cerdoRol(models.Model):
+    tipo = (
+            ('Reproductora','Reproductora'),
+            ('Reproductor','Reproductor'),
+            ('Engorde','Engorde'),
+            ('Nacido','Nacido'))
+    cerdo = models.ForeignKey(Cerdo,on_delete=models.CASCADE)
+    rol_nombre = models.CharField(max_length=12,choices = tipo)
+    active = models.BooleanField(default=True)  
+
+    def __str__(self):
+        return self.rol_nombre
     class Meta:
         abstract = False
 

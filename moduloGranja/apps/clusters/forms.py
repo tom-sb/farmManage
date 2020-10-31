@@ -4,4 +4,4 @@ from .models import Cluster
 class FormCluster(forms.ModelForm):
     class Meta:
         model = Cluster
-        fields = ['nombre_cluster','capacidad','nro_galpon']
+        fields = ['nombre','capacidad','nro_galpon']

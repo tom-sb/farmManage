@@ -6,23 +6,33 @@ from .models import Cluster
 from apps.cerdos.models import Cerdo
 from apps.personal.models import Personal
 from apps.alimentos.models import FichaAlimento
+from django.core.paginator import Paginator
 
 from django.db.models import Q
 
 # Create your views here.
 def index_clusters(request):
-    template = 'clusters/index_clusters.html'
+    template = 'clusters/homeCluster.html'
     clusters = Cluster.objects.all()
+    paginator = Paginator(clusters,8)
+    page_number=request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    cluster = FormCluster()
+    context = {'clusters':clusters,
+                'formcluster':cluster,
+                'page_obj':page_obj}
+    return render(request,template,context)
+
+def registrarCluster(request):
     if request.method == 'POST':
         cluster=FormCluster(request.POST)
         if cluster.is_valid():
             cluster.save()
             return redirect('index_cluster')
+        else:
+            return HttpResponse("Error de Validación")
     else:
-        cluster = FormCluster()
-        context = {'clusters':clusters,
-                'form':cluster}
-    return render(request,template,context)
+        return redirect('index_cluster')
 
 def tablacluster(request,pk):
     clust = get_object_or_404(Cluster, pk=pk)

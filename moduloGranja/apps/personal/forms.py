@@ -5,8 +5,10 @@ from .models import Personal
 class FormPersonal(forms.ModelForm):
     class Meta:
         model = Personal
-        fields = ['nombre_personal','dni','vencimiento_carnet']
+        fields = ['nombre','dni','fecha_ingreso','fecha_salida']
         widgets = {
-                'vencimiento_carnet': DatePickerInput(
+                'fecha_ingreso': DatePickerInput(
+                    format='%m/%d/%Y'),
+                'fecha_salida': DatePickerInput(
                     format='%m/%d/%Y'),
                 }

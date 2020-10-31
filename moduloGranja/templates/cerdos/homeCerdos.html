@@ -1,0 +1,175 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block content %}
+<div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Registrar Cerdo</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="{% url 'registrarCerdo' %}" method="POST"> {%csrf_token%}		
+						    	
+      <div class="modal-body mx-3">
+      {% for field in form %}
+          {{field|as_crispy_field}}
+      {% endfor %}
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button class="btn btn-outline-success btn-lg btn-block">registrar</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalRegisterFormRaza" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Registrar Raza</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="{% url 'registrarRaza' %}" method="POST"> {%csrf_token%}					    	
+      <div class="modal-body mx-3">
+      <div class="form-group">
+      	{{ r_form|crispy}}
+      </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button class="btn btn-outline-success btn-lg btn-block">Registrar</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="headfix bg-secondary navbar" >
+    <!-- creacione de botones-modals-->
+    <div class="container">
+    <div class="col-md-8 offset-md-8 col-sm-8 align-self-center">
+		<a href="" class="btn  btn-primary btn-lg btn-rounded" 
+        data-toggle="modal" data-target="#modalRegisterForm"> Registrar Cerdo</a>
+                    
+		<a href="" class="btn  btn-primary btn-lg btn-rounded" 
+        data-toggle="modal" data-target="#modalRegisterFormRaza"> Registrar Raza</a>
+			
+	</div>
+    </div>
+</div>
+
+<div class="bs-docs-section">
+
+    <div class="row">
+        <div class="col-xl-8">
+            <div class=card>
+                <form method="POST">{% csrf_token%}
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Tabla de Cerdos</h6>
+                    <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" 
+                        id="dropdownMenuLink" data-toggle="dropdown" 
+                        aria-haspopup="true" aria-expanded="false">
+                      <i class="fa fa-bars btn-primary"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" 
+                        aria-labelledby="dropdownMenuLink">
+                      <div class="dropdown-header">Acción:</div>
+                      <button class="dropdown-item"
+                              formaction="{% url 'determinarGalpon' pk=1%}">
+                                Determinar Galpon
+                      </button>
+                      <a class="dropdown-item" href="#">Inseminar</a>
+                      <button class="dropdown-item"
+                              formaction="#">
+                          Obtener muestra
+                      </button>
+                      <a class="dropdown-item openModal" href="javascript:void(0);" rel="{% url 'eliminarCerdo' %}" data-toggle="modal" data-target="#modalEditForm">
+								Eliminar
+								</a>
+                      <button class="dropdown-item" 
+                            formaction="{% url 'eliminarCerdo'%}" onClick="alertToggle(this)">
+                          Dar de Baja
+                      </button>
+                      <!--div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#">dd</a-->
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover table-bordered tests">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>
+                                <input type="checkbox"
+                                            onClick="toggle(this)"/>Nombre</th>
+                                <th>Raza</th>
+                                <th>Peso</th><th>Tipo</th>
+                                <th>Grupo</th><th>Acción</th>
+                          
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {% for cerdo in cerdos %}
+                            <tr class="table-{{ cerdo.reporte }}">
+                            	
+                                <td><input type="checkbox" name="foo"
+                                    id="option{{cerdo.id}}" value={{cerdo.pk}} /> {{ cerdo.nombre }}</td>
+                                <td>{{ cerdo.raza }}</td>
+                                <td>{{ cerdo.peso }}</td>
+                                <td>{{ cerdo.tipo }}</td>
+                                <td>{{ cerdo.cluster }}</td>
+                                <td>
+                                    <a href="{% url 'visualizarCerdo' pk=cerdo.pk%}">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm">
+                                        información</button>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-xl-4">
+            <div class="card">
+                <div class="card-header">
+                    <strong class="card-title"> Tabla de Razas</strong>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover table-bordered tabela1">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Nombre</th>
+                            </tr>
+                        </thead>
+                        </tbody>
+                            {%for raza in razas %}
+                            <tr>
+                                <td>{{raza.nombre}}</td>
+                            </tr>
+                            {% endfor%}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

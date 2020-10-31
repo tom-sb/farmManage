@@ -1,0 +1,42 @@
+{% load static %}
+  
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Eliminar Personal</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form  action="{% url 'eliminarPersonal' personal.pk %}" method="POST">
+       {%csrf_token%}		
+						    	
+      <div class="modal-body mx-3">
+      <p>Esta seguro que desea eliminar a </p>
+      <p>{{ personal.nombre }}</p>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button type="submit" class="btn btn-outline-success btn-lg btn-block">Eliminar</button>
+      </div>
+      </form>
+    </div>
+  </div>
+  
+<script>
+$(function(){
+	$('input, textarea, select').addClass('form-control');
+	$('input[type="checkbox"]').removeClass('form-control');
+
+    $('form').on('submit', function(e){
+        e.preventDefault();
+        $.ajax({
+            url: $(this).attr('action'),
+            type: 'POST',
+            data: $('form').serialize(),
+            success: function(data){
+            	$('.modal-dialog').replaceWith(data);
+            }
+        });
+    });
+});
+</script>

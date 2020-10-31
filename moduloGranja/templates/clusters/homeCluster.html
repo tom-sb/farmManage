@@ -1,0 +1,106 @@
+{% extends 'base/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weiht-bold">Registrar Galpon</h4>
+                <button type="button" class="close" data-dismiss="modal" 
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{% url 'registrarCluster' %}" method="POST" role="form">
+            {% csrf_token %}
+            <div class="modal-body mx-3">
+                <div class="form-group">
+                    {{ formcluster|crispy}}
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button class="btn btn-outline-success btn-lg btn-block">
+                    Registrar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="headfix bg-secondary navbar">
+    <div class="col-md-8 offset-md-8 col-sm-8 align-self-center">
+        <a href="" class="btn btn-primary btn-lg btn-rounded" 
+            data-toggle="modal" data-target="#modalRegisterForm">
+            Registrar Galpon</a>
+    </div>
+</div>
+<div class="bs-docs-section">
+            <div class="card">
+                <form method="POST"> {% csrf_token %}
+                <div class="card-header py-3 d-flex flex-row align-items-center
+                    justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary"> Galpones</h6>
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button"
+                            id="dropdownMenuLink" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-bars btn-primary"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-header">Acción:</div>
+                            <a class="dropdown-item" href="#">Dar de Baja</a>
+                            <button class="dropdown-item"
+                                    formaction="#">Dar de Baja
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    {% for cluster in page_obj %}
+                    <div class="col-lg-3">
+                        <!--a href="#"-->
+                            <div class="card border-success mb-3" 
+                                style="max-width: 25rem;">
+                                <div class="card-header py-3 d-flex flex-row
+                                align-items-center justify-content-between" >
+                                    <strong class="card-title">{{ cluster.nombre}}</strong>
+                                    <!--div class="dropdown"-->
+                                    <input type="checkbox" name="cluster"/>
+                                    <!--/div-->
+                                </div>
+                                <a href="#">
+                                <div class="card-body">
+                                    <h4 class="card-title">
+                                        Capacidad: {{cluster.capacidad}} </h4>
+                                    <p class="card-text">
+                                    cantidad de cerdos: {{cluster.nro_cerdos}} </p>
+                                </div>
+                                </a>
+                            </div>
+                        <!--/a-->
+                    </div>
+                    {% endfor%}
+                </div>
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if page_obj.has_previous %}
+                        <a href="?page=1">&laquo; primero</a>
+                        <a href="?page={{ page_obj.previous_page_number }}">anterior</a>
+                        {% endif %}
+                        <span class="current">
+                            Pagina {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                        </span>
+                        {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">siguiente</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}">anterior &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+                </form>
+            </div>
+</div>
+
+{% endblock %}
