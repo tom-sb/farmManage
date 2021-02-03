@@ -24,4 +24,7 @@ urlpatterns = [
     path('alimentos/', include('apps.alimentos.urls')),
     path('farmacos/', include('apps.farmacos.urls')),
     path('personal/', include('apps.personal.urls')),
+    path('registro/', include('apps.registration.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('social-auth/', include('social_django.urls', namespace="social")),
 ]

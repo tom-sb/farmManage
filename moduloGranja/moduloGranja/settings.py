@@ -27,6 +27,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_REDIRECT_URL = '/home'
+LOGOUT_REDIRECT_URL = '/home'
+
+#key y secret obtenidos de facebook 4 developers
+SOCIAL_AUTH_FACEBOOK_KEY = "710153126531368"
+SOCIAL_AUTH_FACEBOOK_SECRET = "8576437ce67dda799c0c09738a0f129e"
 
 # Application definition
 
@@ -43,9 +49,11 @@ INSTALLED_APPS = [
 	'apps.personal',
 	'apps.farmacos',
 	'apps.notificaciones',
+	'apps.registration',
 	'crispy_forms',
 	'bootstrap_datepicker_plus',
 	'bootstrap4',
+    'social_django',#inicio sesion con facebook
 ]
 
 MIDDLEWARE = [
@@ -71,10 +79,29 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',#inicio de sesion facebook 
+                'social_django.context_processors.login_redirect', #inico de sesion facebook
             ],
         },
     },
 ]
+
+#inicio de sesion con facebook
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_link'] 
+
+#inicio de sesion con facebook
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {  
+  'fields': 'id, name, email, picture.type(large), link'
+}
+
+#inicio de sesion con facebook
+SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [               
+    ('name', 'name'),
+    ('email', 'email'),
+    ('picture', 'picture'),
+    ('link', 'profile_url'),
+]
+
 
 WSGI_APPLICATION = 'moduloGranja.wsgi.application'
 
@@ -132,3 +159,9 @@ BOOTSTRAP4 = {
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR,'static'),)
+
+#inicio de sesion con facebook
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+]
