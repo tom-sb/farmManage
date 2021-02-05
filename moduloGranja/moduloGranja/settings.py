@@ -31,8 +31,8 @@ LOGIN_REDIRECT_URL = '/home'
 LOGOUT_REDIRECT_URL = '/home'
 
 #key y secret obtenidos de facebook 4 developers
-SOCIAL_AUTH_FACEBOOK_KEY = "710153126531368"
-SOCIAL_AUTH_FACEBOOK_SECRET = "8576437ce67dda799c0c09738a0f129e"
+SOCIAL_AUTH_FACEBOOK_KEY = "key"
+SOCIAL_AUTH_FACEBOOK_SECRET = "secret"
 
 # Application definition
 
